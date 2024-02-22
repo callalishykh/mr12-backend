@@ -1,4 +1,5 @@
 import UserModel from "../../model/user/index.js";
+import UserFollowerModel from "../../model/user/userFollower.js";
 
 const UserController = {
   create: async (req, res) => {
@@ -14,6 +15,14 @@ const UserController = {
       message: "User created",
       user,
     });
+  },
+
+  getOne: async (req, res) => {
+    const user = await UserModel.findByPk(1, {
+      include: ["followings", "followers"],
+    });
+
+    res.json({ user });
   },
 
   update: async (req, res) => {
@@ -37,6 +46,16 @@ const UserController = {
       message: "User updated",
       user,
     });
+  },
+  follow: async (req, res) => {
+    const { userId, followId } = req.body;
+
+    await UserFollowerModel.create({
+      followeeId: followId,
+      followerId: userId,
+    });
+
+    return res.json({ message: "User followed" });
   },
 };
 
