@@ -4,12 +4,11 @@ import Joi from "joi";
 const PostController = {
   create: async (req, res) => {
     const payload = req.body;
+    const userId = req.user.id;
 
     const schema = Joi.object({
       title: Joi.string().min(3).max(90).required(),
-
       description: Joi.string().max(950),
-      UserId: Joi.number(),
     });
 
     const response = schema.validate(req.body);
@@ -22,7 +21,7 @@ const PostController = {
     const post = await PostModel.create({
       title: payload.title,
       description: payload.description,
-      UserId: payload.UserId,
+      UserId: userId,
     });
 
     res.json({

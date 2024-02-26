@@ -16,11 +16,14 @@ const AuthController = {
 
     const token = jwt.sign(
       {
+        id: user.id,
         name: user.name,
         email: user.email,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
       },
-      "kakakakakka"
+      "kakakakakka",
+      {
+        expiresIn: "40m",
+      }
     );
 
     res.json({
