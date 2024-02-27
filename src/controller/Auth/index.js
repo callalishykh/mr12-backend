@@ -20,7 +20,7 @@ const AuthController = {
         name: user.name,
         email: user.email,
       },
-      "kakakakakka",
+      process.env.JWT_SIGNATURE,
       {
         expiresIn: "40m",
       }

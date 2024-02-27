@@ -8,7 +8,7 @@ const AuthenticateMiddleware = (req, res, next) => {
   token = token[1];
 
   try {
-    const userData = jwt.verify(token, "kakakakakka");
+    const userData = jwt.verify(token, process.env.JWT_SIGNATURE);
     console.log(userData, "decode");
     req.user = userData;
   } catch (error) {

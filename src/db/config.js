@@ -1,9 +1,12 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("mr12", "postgres", "password", {
-  host: "localhost",
-  port: 5432,
-  dialect: "postgres",
+const env = process.env;
+
+console.log(env, "env");
+const sequelize = new Sequelize(env.DB_NAME, env.DB_USER, env.DB_PASSWORD, {
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  dialect: env.DB_DIALECT,
   logging: false,
 });
 
